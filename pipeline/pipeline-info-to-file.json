@@ -1,0 +1,43 @@
+{
+	"name": "pipeline-info-to-file",
+	"properties": {
+		"activities": [
+			{
+				"name": "get-execution-info",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "csv_ds",
+						"type": "DatasetReference"
+					},
+					"fieldList": [
+						"size",
+						"lastModified",
+						"itemType",
+						"itemName",
+						"exists",
+						"contentMD5",
+						"columnCount"
+					],
+					"storeSettings": {
+						"type": "AzureBlobStorageReadSettings",
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "DelimitedTextReadSettings"
+					}
+				}
+			}
+		],
+		"annotations": []
+	}
+}
