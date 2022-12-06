@@ -1,5 +1,5 @@
 {
-	"name": "multiplerows",
+	"name": "rounndoff",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
@@ -16,29 +16,18 @@
 			"transformations": [
 				{
 					"name": "derivedColumn1"
-				},
-				{
-					"name": "flatten1"
 				}
 			],
 			"scriptLines": [
 				"source(output(",
 				"          number as short,",
 				"          name as string,",
-				"          skill as string",
+				"          booklength as double",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> source1",
-				"source1 derive(skillnew = split(skill, ',')) ~> derivedColumn1",
-				"derivedColumn1 foldDown(unroll(skillnew, skillnew),",
-				"     mapColumn(",
-				"          skillnew = skillnew,",
-				"          number,",
-				"          name",
-				"     ),",
-				"     skipDuplicateMapInputs: false,",
-				"     skipDuplicateMapOutputs: false) ~> flatten1"
+				"source1 derive(newbooklength = round(booklength, 4)) ~> derivedColumn1"
 			]
 		}
 	}
