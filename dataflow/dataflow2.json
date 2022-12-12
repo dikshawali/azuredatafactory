@@ -1,0 +1,36 @@
+{
+	"name": "dataflow2",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText4",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "aggregate1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          name as string,",
+				"          rollnumber as short,",
+				"          subject as string,",
+				"          marks as short",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 aggregate(groupBy(name),",
+				"     mixed_col = collect(concat('{\\n\\tsubject=',subject,'\\n','\\n\\tmakrks=',toString(marks),' }'))) ~> aggregate1"
+			]
+		}
+	}
+}
