@@ -36,6 +36,7 @@
 						"value": "@range(1,activity('Web1').output.total_pages)",
 						"type": "Expression"
 					},
+					"isSequential": true,
 					"activities": [
 						{
 							"name": "Copy data1",
@@ -61,22 +62,42 @@
 									}
 								},
 								"sink": {
-									"type": "AzureSqlSink",
-									"writeBehavior": "insert",
-									"sqlWriterUseTableLock": false
+									"type": "JsonSink",
+									"storeSettings": {
+										"type": "AzureBlobStorageWriteSettings"
+									},
+									"formatSettings": {
+										"type": "JsonWriteSettings"
+									}
 								},
 								"enableStaging": false
 							},
 							"inputs": [
 								{
 									"referenceName": "Json1",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"page_number": {
+											"value": "@string(item())",
+											"type": "Expression"
+										}
+									}
 								}
 							],
 							"outputs": [
 								{
-									"referenceName": "AzureSqlTable1",
-									"type": "DatasetReference"
+									"referenceName": "Json2",
+									"type": "DatasetReference",
+									"parameters": {
+										"file": {
+											"value": "@concat(string(item()),'-file')",
+											"type": "Expression"
+										},
+										"folder": {
+											"value": "@concat(string(item()),'-container')",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
@@ -84,11 +105,6 @@
 				}
 			}
 		],
-		"variables": {
-			"newvar": {
-				"type": "String"
-			}
-		},
 		"annotations": []
 	}
 }

@@ -5,12 +5,20 @@
 			"referenceName": "HttpServer1",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"page_number": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "Json",
 		"typeProperties": {
 			"location": {
 				"type": "HttpServerLocation",
-				"relativeUrl": "/api/users?page=1"
+				"relativeUrl": {
+					"value": "@/api/users?page=dataset().page_number",
+					"type": "Expression"
+				}
 			}
 		},
 		"schema": {}
