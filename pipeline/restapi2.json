@@ -1,0 +1,50 @@
+{
+	"name": "restapi2",
+	"properties": {
+		"activities": [
+			{
+				"name": "Web1",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://reqres.in/api/users?page=1",
+					"method": "GET"
+				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Web1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "myvar",
+					"value": {
+						"value": "@activity('Web1').output",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"myvar": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}
