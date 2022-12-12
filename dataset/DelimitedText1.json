@@ -1,0 +1,44 @@
+{
+	"name": "DelimitedText1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "secondtable.csv",
+				"container": "input"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "c1",
+				"type": "String"
+			},
+			{
+				"name": "c2",
+				"type": "String"
+			},
+			{
+				"name": "c3",
+				"type": "String"
+			},
+			{
+				"name": "c4",
+				"type": "String"
+			},
+			{
+				"name": "c5",
+				"type": "String"
+			}
+		]
+	}
+}

@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "DelimitedText",
+
 						"type": "DatasetReference"
 					},
 					"name": "source1"
@@ -23,24 +23,12 @@
 			],
 			"transformations": [
 				{
-					"name": "outputdistinctcolumns"
+
 				}
 			],
 			"scriptLines": [
 				"source(output(",
-				"          number as short,",
-				"          name as string,",
-				"          subjects as string",
-				"     ),",
-				"     allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source1",
-				"source1 aggregate(groupBy(number),",
-				"     name = max(name),",
-				"          subjects = collect(subjects)) ~> outputdistinctcolumns",
-				"outputdistinctcolumns sink(allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     partitionFileNames:['target.csv'],",
+
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
 				"     partitionBy('hash', 1)) ~> sink1"
