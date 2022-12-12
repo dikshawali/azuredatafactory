@@ -1,5 +1,5 @@
 {
-	"name": "csvtojson",
+	"name": "filter-using-external-file",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
@@ -10,20 +10,19 @@
 						"type": "DatasetReference"
 					},
 					"name": "source1"
-				}
-			],
-			"sinks": [
+				},
 				{
 					"dataset": {
-						"referenceName": "Json4",
+						"referenceName": "DelimitedText5",
 						"type": "DatasetReference"
 					},
-					"name": "sink1"
+					"name": "source2"
 				}
 			],
+			"sinks": [],
 			"transformations": [
 				{
-					"name": "aggregate1"
+					"name": "filter1"
 				}
 			],
 			"scriptLines": [
@@ -36,20 +35,14 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> source1",
-				"source1 aggregate(groupBy(name),",
-				"     mixed_col = @({}=)) ~> aggregate1",
-				"aggregate1 sink(allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     input(",
-				"          name as string,",
-				"          rollnumber as string,",
-				"          subject as string,",
-				"          marks as string",
+				"source(output(",
+				"          filename as string,",
+				"          rule as string",
 				"     ),",
-				"     partitionFileNames:['new_json_file'],",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true,",
-				"     partitionBy('hash', 1)) ~> sink1"
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source2",
+				"source1 filter(subject=='dsa') ~> filter1"
 			]
 		}
 	}
