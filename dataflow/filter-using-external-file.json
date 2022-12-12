@@ -22,10 +22,17 @@
 			"sinks": [],
 			"transformations": [
 				{
+					"name": "lookup1"
+				},
+				{
 					"name": "filter1"
 				}
 			],
 			"scriptLines": [
+				"parameters{",
+				"     container as string ($container),",
+				"     filename as string (filename)",
+				"}",
 				"source(output(",
 				"          name as string,",
 				"          rollnumber as short,",
@@ -42,7 +49,11 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> source2",
-				"source1 filter(subject=='dsa') ~> filter1"
+				"source2 lookup(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"     multiple: false,",
+				"     pickup: 'any',",
+				"     broadcast: 'auto')~> lookup1",
+				"source1 filter($filename) ~> filter1"
 			]
 		}
 	}
