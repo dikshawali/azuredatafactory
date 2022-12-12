@@ -12,7 +12,15 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "Json4",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "aggregate1"
@@ -29,7 +37,17 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> source1",
 				"source1 aggregate(groupBy(name),",
-				"     mixed_col = collect(concat('{\\n\\tsubject=',subject,'\\n','\\n\\tmakrks=',toString(marks),' }'))) ~> aggregate1"
+				"     mixed_col = collect(concat('{\\n\\tsubject=',subject,'\\n','\\n\\tmakrks=',toString(marks),' }'))) ~> aggregate1",
+				"aggregate1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          name as string,",
+				"          rollnumber as string,",
+				"          subject as string,",
+				"          marks as string",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
