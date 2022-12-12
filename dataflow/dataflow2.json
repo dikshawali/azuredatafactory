@@ -46,6 +46,7 @@
 				"          subject as string,",
 				"          marks as string",
 				"     ),",
+				"     partitionFileNames:['new_json_file'],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
