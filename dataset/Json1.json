@@ -16,7 +16,7 @@
 			"location": {
 				"type": "HttpServerLocation",
 				"relativeUrl": {
-					"value": "@/api/users?page=dataset().page_number",
+					"value": "@concat('/api/users?page=', dataset().page_number)",
 					"type": "Expression"
 				}
 			}
