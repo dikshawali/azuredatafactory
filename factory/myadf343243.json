@@ -1,0 +1,9 @@
+{
+	"name": "myadf343243",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "65827032-173b-4c17-89bf-ee1d7a48f0fb",
+		"tenantId": "02aa9fc1-18bc-4798-a020-e01c854dd434"
+	}
+}
