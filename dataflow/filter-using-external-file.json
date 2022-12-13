@@ -12,12 +12,23 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [],
-			"transformations": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText3",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "filter2"
+				}
+			],
 			"scriptLines": [
 				"parameters{",
-				"     filename as string ('hello'),",
-				"     logic as string ('heyyy')",
+				"     logic as boolean (1==1)",
 				"}",
 				"source(output(",
 				"          name as string,",
@@ -26,7 +37,18 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source1"
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 filter($logic) ~> filter2",
+				"filter2 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          Name as string,",
+				"          rn as string",
+				"     ),",
+				"     partitionFileNames:['result.csv'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sink1"
 			]
 		}
 	}

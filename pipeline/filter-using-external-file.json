@@ -56,12 +56,8 @@
 						"referenceName": "filter-using-external-file",
 						"type": "DataFlowReference",
 						"parameters": {
-							"container": {
-								"value": "'@{activity('Lookup1').output.filename}'",
-								"type": "Expression"
-							},
-							"filename": {
-								"value": "'@{activity('Lookup1').output.rule}'",
+							"logic": {
+								"value": "@activity('Lookup1').output.firstRow.rule",
 								"type": "Expression"
 							}
 						}
@@ -74,14 +70,6 @@
 				}
 			}
 		],
-		"parameters": {
-			"container_ppl": {
-				"type": "string"
-			},
-			"file_ppl": {
-				"type": "string"
-			}
-		},
 		"annotations": []
 	}
 }
