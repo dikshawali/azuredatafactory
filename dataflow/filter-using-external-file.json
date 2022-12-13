@@ -10,50 +10,23 @@
 						"type": "DatasetReference"
 					},
 					"name": "source1"
-				},
-				{
-					"dataset": {
-						"referenceName": "DelimitedText5",
-						"type": "DatasetReference"
-					},
-					"name": "source2"
 				}
 			],
 			"sinks": [],
-			"transformations": [
-				{
-					"name": "lookup1"
-				},
-				{
-					"name": "filter1"
-				}
-			],
+			"transformations": [],
 			"scriptLines": [
 				"parameters{",
-				"     container as string ($container),",
-				"     filename as string (filename)",
+				"     filename as string ('hello'),",
+				"     logic as string ('heyyy')",
 				"}",
 				"source(output(",
 				"          name as string,",
 				"          rollnumber as short,",
-				"          subject as string,",
-				"          marks as short",
+				"          subject as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source1",
-				"source(output(",
-				"          filename as string,",
-				"          rule as string",
-				"     ),",
-				"     allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source2",
-				"source2 lookup(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
-				"     multiple: false,",
-				"     pickup: 'any',",
-				"     broadcast: 'auto')~> lookup1",
-				"source1 filter($filename) ~> filter1"
+				"     ignoreNoFilesFound: false) ~> source1"
 			]
 		}
 	}
